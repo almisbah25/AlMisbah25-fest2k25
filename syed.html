@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misbahi Program Portal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card h2 {
+            color: #1a2a6c;
+            margin-top: 0;
+            border-bottom: 2px solid #b21f1f;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a2a6c;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="file"] {
+            padding: 5px;
+        }
+        
+        button {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #1a2a6c;
+        }
+        
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .info-item strong {
+            color: #b21f1f;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tab.active {
+            background-color: #1a2a6c;
+            color: white;
+            border-color: #1a2a6c;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #1a2a6c;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .publish-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .published {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .unpublished {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .position-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .first {
+            background-color: #ffd700;
+            color: #333;
+        }
+        
+        .second {
+            background-color: #c0c0c0;
+            color: #333;
+        }
+        
+        .third {
+            background-color: #cd7f32;
+            color: #333;
+        }
+        
+        .points {
+            font-weight: bold;
+            color: #b21f1f;
+            font-size: 1.2rem;
+        }
+        
+        .team-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .team-card h4 {
+            margin-top: 0;
+            color: #1a2a6c;
+        }
+        
+        .program-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #b21f1f;
+        }
+        
+        .program-card h4 {
+            margin-top: 0;
+            color: #b21f1f;
+        }
+        
+        .user-type-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-type-btn {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .user-type-btn.active {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border-color: #1a2a6c;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            margin-right: 20px;
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info h3 {
+            margin: 0 0 5px 0;
+            color: #1a2a6c;
+        }
+        
+        .profile-info p {
+            margin: 0;
+            color: #666;
+        }
+        
+        .student-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1a2a6c;
+        }
+        
+        .total-points-card {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .total-points-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        .total-points-card .points-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .required {
+            color: #b21f1f;
+        }
+        
+        .image-preview {
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .result-checkbox {
+            margin-right: 10px;
+        }
+        
+        .publish-selected-btn {
+            background-color: #28a745;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .modal-buttons button {
+            margin-left: 10px;
+        }
+        
+        .cancel-btn {
+            background-color: #6c757d;
+        }
+        
+        .simple-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .simple-form h3 {
+            text-align: center;
+            color: #1a2a6c;
+            margin-top: 0;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .program-participation {
+            margin-top: 15px;
+        }
+        
+        .program-participation h4 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        
+        .program-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .program-tag {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .program-tag.assigned {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        
+        .program-tag.results {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .program-tag .status {
+            margin-left: 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Misbahi Program Portal</h1>
+            <p>Student Program Management System</p>
+        </div>
+        
+        <div class="content">
+            <!-- Login Section -->
+            <div id="loginSection" class="card">
+                <h2>Login to Portal</h2>
+                
+                <div class="user-type-selector">
+                    <div class="user-type-btn active" onclick="setUserType('admin')">Admin</div>
+                    <div class="user-type-btn" onclick="setUserType('viewer')">Viewer</div>
+                    <div class="user-type-btn" onclick="setUserType('student')">Student</div>
+                </div>
+                
+                <div id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminUsername">Username:</label>
+                        <input type="text" id="adminUsername" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password:</label>
+                        <input type="password" id="adminPassword" placeholder="Enter your password">
+                    </div>
+                    <button onclick="login('admin')">Login</button>
+                </div>
+                
+                <div id="viewerLoginForm" class="hidden">
+                    <div class="form-group">
+                        <label for="viewerUsername">Username:</label>
+                        <input type="text" id="viewerUsername" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="viewerPassword">Password:</label>
+                        <input type="password" id="viewerPassword" placeholder="Enter your password">
+                    </div>
+                    <button onclick="login('viewer')">Login</button>
+                </div>
+                
+                <div id="studentLoginForm" class="hidden">
+                    <div class="form-group">
+                        <label for="studentAdmissionNumber">Admission Number:</label>
+                        <input type="text" id="studentAdmissionNumber" placeholder="Enter your admission number">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword">Password:</label>
+                        <input type="password" id="studentPassword" placeholder="Enter your password">
+                    </div>
+                    <button onclick="login('student')">Login</button>
+                </div>
+                
+                <div id="loginMessage" class="message hidden"></div>
+            </div>
+            
+            <!-- Admin Dashboard -->
+            <div id="adminDashboard" class="card hidden">
+                <h2>Admin Dashboard - Welcome Suhail</h2>
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('addStudent')">Add Student</div>
+                    <div class="tab" onclick="showTab('viewStudents')">View Students</div>
+                    <div class="tab" onclick="showTab('assignProgram')">Assign Program</div>
+                    <div class="tab" onclick="showTab('assignTeam')">Assign Team</div>
+                    <div class="tab" onclick="showTab('managePrograms')">Manage Programs</div>
+                    <div class="tab" onclick="showTab('manageTeams')">Manage Teams</div>
+                    <div class="tab" onclick="showTab('addResult')">Add Result</div>
+                    <div class="tab" onclick="showTab('publishResults')">Publish Results</div>
+                    <div class="tab" onclick="showTab('searchStudent')">Search Student</div>
+                </div>
+                
+                <!-- Add Student Tab -->
+                <div id="addStudent" class="tab-content active">
+                    <div class="simple-form">
+                        <h3>Add New Student</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentName">Student Name <span class="required">*</span>:</label>
+                                <input type="text" id="studentName" placeholder="Enter student's name">
+                            </div>
+                            <div class="form-group">
+                                <label for="admissionNumber">Admission Number <span class="required">*</span>:</label>
+                                <input type="text" id="admissionNumber" placeholder="Enter admission number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentImage">Student Image <span class="required">*</span>:</label>
+                            <input type="file" id="studentImage" accept="image/*" onchange="previewImage(event)">
+                            <div id="imagePreview" class="image-preview hidden">
+                                <img id="previewImg" src="" alt="Preview">
+                            </div>
+                        </div>
+                        <button onclick="addStudent()">Add Student</button>
+                        <div id="addStudentMessage" class="message hidden"></div>
+                    </div>
+                </div>
+                
+                <!-- View Students Tab -->
+                <div id="viewStudents" class="tab-content">
+                    <h3>All Students</h3>
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Admission Number</th>
+                                <th>Name</th>
+                                <th>Program</th>
+                                <th>Team</th>
+                                <th>Total Points</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Table rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Assign Program Tab -->
+                <div id="assignProgram" class="tab-content">
+                    <h3>Assign Program to Student</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="assignProgramStudent">Student <span class="required">*</span>:</label>
+                            <select id="assignProgramStudent">
+                                <option value="">Select a student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assignProgramProgram">Program <span class="required">*</span>:</label>
+                            <select id="assignProgramProgram">
+                                <option value="">Select a program</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="assignProgramToStudent()">Assign Program</button>
+                    <div id="assignProgramMessage" class="message hidden"></div>
+                </div>
+                
+                <!-- Assign Team Tab -->
+                <div id="assignTeam" class="tab-content">
+                    <h3>Assign Team to Student</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="assignTeamStudent">Student <span class="required">*</span>:</label>
+                            <select id="assignTeamStudent">
+                                <option value="">Select a student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assignTeamTeam">Team:</label>
+                            <select id="assignTeamTeam">
+                                <option value="">Select a team (optional)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="assignTeamToStudent()">Assign Team</button>
+                    <div id="assignTeamMessage" class="message hidden"></div>
+                </div>
+                
+                <!-- Manage Programs Tab -->
+                <div id="managePrograms" class="tab-content">
+                    <h3>Manage Programs</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="programCode">Program Code <span class="required">*</span>:</label>
+                            <input type="text" id="programCode" placeholder="Enter program code">
+                        </div>
+                        <div class="form-group">
+                            <label for="programName">Program Name <span class="required">*</span>:</label>
+                            <input type="text" id="programName" placeholder="Enter program name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="programDescription">Program Description:</label>
+                        <textarea id="programDescription" rows="3" placeholder="Enter program description"></textarea>
+                    </div>
+                    <button onclick="addProgram()">Add Program</button>
+                    
+                    <h4>Existing Programs</h4>
+                    <table id="programsTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="programsTableBody">
+                            <!-- Table rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Manage Teams Tab -->
+                <div id="manageTeams" class="tab-content">
+                    <h3>Manage Teams/Houses (Optional)</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teamName">Team/House Name:</label>
+                            <input type="text" id="teamName" placeholder="Enter team/house name">
+                        </div>
+                        <div class="form-group">
+                            <label for="teamDescription">Team Description:</label>
+                            <input type="text" id="teamDescription" placeholder="Enter team description">
+                        </div>
+                    </div>
+                    <button onclick="addTeam()">Add Team</button>
+                    
+                    <h4>Existing Teams</h4>
+                    <div id="teamsList">
+                        <!-- Team cards will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Add Result Tab -->
+                <div id="addResult" class="tab-content">
+                    <h3>Add Student Result</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="resultStudent">Student <span class="required">*</span>:</label>
+                            <select id="resultStudent">
+                                <option value="">Select a student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="resultProgram">Program <span class="required">*</span>:</label>
+                            <select id="resultProgram">
+                                <option value="">Select a program</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resultPosition">Position <span class="required">*</span>:</label>
+                        <select id="resultPosition">
+                            <option value="">Select position</option>
+                            <option value="1">1st Position</option>
+                            <option value="2">2nd Position</option>
+                            <option value="3">3rd Position</option>
+                        </select>
+                    </div>
+                    <button onclick="addResult()">Add Result</button>
+                    <div id="addResultMessage" class="message hidden"></div>
+                </div>
+                
+                <!-- Publish Results Tab -->
+                <div id="publishResults" class="tab-content">
+                    <h3>Publish Results</h3>
+                    <p>Select the results you want to publish and click the "Publish Selected" button.</p>
+                    <div id="publicationStatus" style="margin-bottom: 15px;">
+                        <strong>Current Status: </strong>
+                        <span id="currentStatus" class="publish-status unpublished">Unpublished</span>
+                    </div>
+                    <button onclick="publishSelectedResults()" class="publish-selected-btn">Publish Selected</button>
+                    <div id="publishMessage" class="message hidden"></div>
+                    
+                    <h4>Unpublished Results</h4>
+                    <table id="unpublishedResultsTable">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Student</th>
+                                <th>Program</th>
+                                <th>Position</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="unpublishedResultsTableBody">
+                            <!-- Table rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                    
+                    <h4>Published Results</h4>
+                    <table id="publishedResultsTable">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Program</th>
+                                <th>Position</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publishedResultsTableBody">
+                            <!-- Table rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Search Student Tab -->
+                <div id="searchStudent" class="tab-content">
+                    <h3>Search Student</h3>
+                    <div class="form-group">
+                        <label for="searchAdmissionNumber">Admission Number:</label>
+                        <input type="text" id="searchAdmissionNumber" placeholder="Enter admission number to search">
+                    </div>
+                    <button onclick="searchStudent()">Search</button>
+                    <div id="searchResult" class="result hidden">
+                        <div class="profile-section">
+                            <div class="profile-avatar" id="searchResultAvatar"></div>
+                            <div class="profile-info">
+                                <h3 id="resultName"></h3>
+                                <p id="resultProgramInfo"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="student-info">
+                            <div class="info-item">
+                                <strong>Admission Number:</strong> <span id="resultAdmissionNumber"></span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Program:</strong> <span id="resultProgram"></span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Team:</strong> <span id="resultTeam"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Program Participation Section -->
+                        <div class="program-participation">
+                            <h4>Program Participation</h4>
+                            <div id="programParticipationList" class="program-list">
+                                <!-- Program tags will be added here dynamically -->
+                            </div>
+                        </div>
+                        
+                        <div class="total-points-card">
+                            <h3>Total Points</h3>
+                            <p class="points-value" id="resultPoints">0</p>
+                        </div>
+                        
+                        <h4>Results</h4>
+                        <div id="studentResults">
+                            <!-- Results will be added here dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="logout()" style="margin-top: 20px; background-color: #6c757d;">Logout</button>
+            </div>
+            
+            <!-- Viewer Dashboard -->
+            <div id="viewerDashboard" class="card hidden">
+                <h2>Student Search - Welcome AL Misbah Friends</h2>
+                <div class="form-group">
+                    <label for="viewerAdmissionNumber">Admission Number:</label>
+                    <input type="text" id="viewerAdmissionNumber" placeholder="Enter admission number to search">
+                </div>
+                <button onclick="viewerSearch()">Search Student</button>
+                <div id="viewerResult" class="result hidden">
+                    <div class="profile-section">
+                        <div class="profile-avatar" id="viewerResultAvatar"></div>
+                        <div class="profile-info">
+                            <h3 id="viewerResultName"></h3>
+                            <p id="viewerResultProgramInfo"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="student-info">
+                        <div class="info-item">
+                            <strong>Admission Number:</strong> <span id="viewerResultAdmissionNumber"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Program:</strong> <span id="viewerResultProgram"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Team:</strong> <span id="viewerResultTeam"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Program Participation Section -->
+                    <div class="program-participation">
+                        <h4>Program Participation</h4>
+                        <div id="viewerProgramParticipationList" class="program-list">
+                            <!-- Program tags will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="total-points-card">
+                        <h3>Total Points</h3>
+                        <p class="points-value" id="viewerResultPoints">0</p>
+                    </div>
+                    
+                    <h4>Results</h4>
+                    <div id="viewerStudentResults">
+                        <!-- Results will be added here dynamically -->
+                    </div>
+                </div>
+                <button onclick="logout()" style="margin-top: 20px; background-color: #6c757d;">Logout</button>
+            </div>
+            
+            <!-- Student Dashboard -->
+            <div id="studentDashboard" class="card hidden">
+                <div class="profile-section">
+                    <div class="profile-avatar" id="studentAvatar"></div>
+                    <div class="profile-info">
+                        <h3 id="studentWelcomeName"></h3>
+                        <p id="studentProgramInfo"></p>
+                    </div>
+                </div>
+                
+                <h2>Student Dashboard</h2>
+                <div class="tabs">
+                    <div class="tab active" onclick="showStudentTab('myDetails')">My Details</div>
+                    <div class="tab" onclick="showStudentTab('myResults')">My Results</div>
+                    <div class="tab" onclick="showStudentTab('myProgram')">My Program</div>
+                </div>
+                
+                <!-- My Details Tab -->
+                <div id="myDetails" class="tab-content active">
+                    <h3>My Personal Details</h3>
+                    <div class="student-info">
+                        <div class="info-item">
+                            <strong>Admission Number:</strong> <span id="studentAdmissionNo"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Name:</strong> <span id="studentFullName"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Program:</strong> <span id="studentProgramName"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Team:</strong> <span id="studentTeamName"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Program Participation Section -->
+                    <div class="program-participation">
+                        <h4>My Program Participation</h4>
+                        <div id="studentProgramParticipationList" class="program-list">
+                            <!-- Program tags will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="total-points-card">
+                        <h3>Total Points</h3>
+                        <p class="points-value" id="studentTotalPoints">0</p>
+                    </div>
+                </div>
+                
+                <!-- My Results Tab -->
+                <div id="myResults" class="tab-content">
+                    <h3>My Results</h3>
+                    <div id="myResultsList">
+                        <!-- Results will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- My Program Tab -->
+                <div id="myProgram" class="tab-content">
+                    <h3>My Program Information</h3>
+                    <div id="myProgramInfo">
+                        <!-- Program information will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <button onclick="logout()" style="margin-top: 20px; background-color: #6c757d;">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirm Action</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Are you sure you want to perform this action?</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button id="confirmButton">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock database
+        let students = [
+            { 
+                admissionNumber: "1001", 
+                name: "Ahmed Hassan", 
+                password: "1001", 
+                program: "MATH", 
+                team: "Red", 
+                imageUrl: "https://randomuser.me/api/portraits/men/1.jpg"
+            },
+            { 
+                admissionNumber: "1002", 
+                name: "Fatima Ali", 
+                password: "1002", 
+                program: "SCI", 
+                team: "Blue", 
+                imageUrl: "https://randomuser.me/api/portraits/women/1.jpg"
+            },
+            { 
+                admissionNumber: "1003", 
+                name: "Muhammad Usman", 
+                password: "1003", 
+                program: "ENG", 
+                team: "Green", 
+                imageUrl: "https://randomuser.me/api/portraits/men/2.jpg"
+            },
+            { 
+                admissionNumber: "1004", 
+                name: "Aisha Khan", 
+                password: "1004", 
+                program: "CS", 
+                team: "Yellow", 
+                imageUrl: "https://randomuser.me/api/portraits/women/2.jpg"
+            },
+            { 
+                admissionNumber: "1005", 
+                name: "Bilal Ahmed", 
+                password: "1005", 
+                program: "HIST", 
+                team: "Red", 
+                imageUrl: "https://randomuser.me/api/portraits/men/3.jpg"
+            }
+        ];
+        
+        let programs = [
+            { code: "MATH", name: "Mathematics", description: "Advanced mathematics program covering algebra, calculus, and geometry." },
+            { code: "SCI", name: "Science", description: "Comprehensive science program including physics, chemistry, and biology." },
+            { code: "ENG", name: "English", description: "English language and literature program focusing on reading, writing, and communication skills." },
+            { code: "CS", name: "Computer Science", description: "Computer science program covering programming, algorithms, and software development." },
+            { code: "HIST", name: "History", description: "History program exploring world civilizations and historical events." }
+        ];
+        
+        let teams = [
+            { name: "Red", description: "Red team - known for courage and determination." },
+            { name: "Blue", description: "Blue team - known for wisdom and intelligence." },
+            { name: "Green", description: "Green team - known for growth and harmony." },
+            { name: "Yellow", description: "Yellow team - known for energy and optimism." }
+        ];
+        
+        let results = [
+            { studentAdmissionNumber: "1001", programCode: "MATH", position: 1, points: 8, published: false },
+            { studentAdmissionNumber: "1002", programCode: "SCI", position: 2, points: 5, published: false },
+            { studentAdmissionNumber: "1003", programCode: "ENG", position: 3, points: 3, published: false },
+            { studentAdmissionNumber: "1004", programCode: "CS", position: 1, points: 8, published: false },
+            { studentAdmissionNumber: "1005", programCode: "HIST", position: 2, points: 5, published: false }
+        ];
+        
+        let resultsPublished = false;
+        let currentUser = null;
+        let currentUserType = null;
+        let selectedImageFile = null;
+        let modalCallback = null;
+
+        // Initialize the page
+        window.onload = function() {
+            // Try to load data from localStorage
+            loadDataFromStorage();
+            
+            populateProgramDropdowns();
+            populateTeamDropdowns();
+            populateStudentDropdown();
+            populateAssignProgramDropdowns();
+            populateAssignTeamDropdowns();
+            populateProgramsTable();
+            populateTeamsList();
+            populateStudentsTable();
+            updatePublicationStatus();
+            populateResultsTables();
+        };
+
+        // Load data from localStorage
+        function loadDataFromStorage() {
+            const savedStudents = localStorage.getItem('misbahiStudents');
+            const savedPrograms = localStorage.getItem('misbahiPrograms');
+            const savedTeams = localStorage.getItem('misbahiTeams');
+            const savedResults = localStorage.getItem('misbahiResults');
+            
+            if (savedStudents) students = JSON.parse(savedStudents);
+            if (savedPrograms) programs = JSON.parse(savedPrograms);
+            if (savedTeams) teams = JSON.parse(savedTeams);
+            if (savedResults) results = JSON.parse(savedResults);
+        }
+
+        // Save data to localStorage
+        function saveDataToStorage() {
+            localStorage.setItem('misbahiStudents', JSON.stringify(students));
+            localStorage.setItem('misbahiPrograms', JSON.stringify(programs));
+            localStorage.setItem('misbahiTeams', JSON.stringify(teams));
+            localStorage.setItem('misbahiResults', JSON.stringify(results));
+        }
+
+        // Set user type
+        function setUserType(type) {
+            // Update active button
+            const buttons = document.querySelectorAll('.user-type-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show appropriate form
+            document.getElementById('adminLoginForm').classList.add('hidden');
+            document.getElementById('viewerLoginForm').classList.add('hidden');
+            document.getElementById('studentLoginForm').classList.add('hidden');
+            
+            if (type === 'admin') {
+                document.getElementById('adminLoginForm').classList.remove('hidden');
+            } else if (type === 'viewer') {
+                document.getElementById('viewerLoginForm').classList.remove('hidden');
+            } else if (type === 'student') {
+                document.getElementById('studentLoginForm').classList.remove('hidden');
+            }
+            
+            // Clear login message
+            document.getElementById('loginMessage').classList.add('hidden');
+        }
+
+        // Preview image
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validate file type
+                if (!file.type.match('image.*')) {
+                    showMessage(document.getElementById('addStudentMessage'), "Please select an image file.", "error");
+                    event.target.value = '';
+                    return;
+                }
+                
+                // Validate file size (limit to 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showMessage(document.getElementById('addStudentMessage'), "Image size should be less than 5MB.", "error");
+                    event.target.value = '';
+                    return;
+                }
+                
+                selectedImageFile = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                selectedImageFile = null;
+                document.getElementById('imagePreview').classList.add('hidden');
+            }
+        }
+
+        // Populate program dropdowns
+        function populateProgramDropdowns() {
+            const resultProgramSelect = document.getElementById('resultProgram');
+            
+            // Clear existing options
+            resultProgramSelect.innerHTML = '<option value="">Select a program</option>';
+            
+            programs.forEach(program => {
+                const option = document.createElement('option');
+                option.value = program.code;
+                option.textContent = `${program.code} - ${program.name}`;
+                resultProgramSelect.appendChild(option);
+            });
+        }
+
+        // Populate assign program dropdowns
+        function populateAssignProgramDropdowns() {
+            const assignProgramStudentSelect = document.getElementById('assignProgramStudent');
+            const assignProgramProgramSelect = document.getElementById('assignProgramProgram');
+            
+            // Clear existing options
+            assignProgramStudentSelect.innerHTML = '<option value="">Select a student</option>';
+            assignProgramProgramSelect.innerHTML = '<option value="">Select a program</option>';
+            
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.admissionNumber;
+                option.textContent = `${student.admissionNumber} - ${student.name}`;
+                assignProgramStudentSelect.appendChild(option);
+            });
+            
+            programs.forEach(program => {
+                const option = document.createElement('option');
+                option.value = program.code;
+                option.textContent = `${program.code} - ${program.name}`;
+                assignProgramProgramSelect.appendChild(option);
+            });
+        }
+
+        // Populate assign team dropdowns
+        function populateAssignTeamDropdowns() {
+            const assignTeamStudentSelect = document.getElementById('assignTeamStudent');
+            const assignTeamTeamSelect = document.getElementById('assignTeamTeam');
+            
+            // Clear existing options
+            assignTeamStudentSelect.innerHTML = '<option value="">Select a student</option>';
+            assignTeamTeamSelect.innerHTML = '<option value="">Select a team (optional)</option>';
+            
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.admissionNumber;
+                option.textContent = `${student.admissionNumber} - ${student.name}`;
+                assignTeamStudentSelect.appendChild(option);
+            });
+            
+            teams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team.name;
+                option.textContent = team.name;
+                assignTeamTeamSelect.appendChild(option);
+            });
+        }
+
+        // Populate team dropdowns
+        function populateTeamDropdowns() {
+            // This function is kept for compatibility but not used in the simplified version
+        }
+
+        // Populate student dropdown
+        function populateStudentDropdown() {
+            const resultStudentSelect = document.getElementById('resultStudent');
+            
+            // Clear existing options
+            resultStudentSelect.innerHTML = '<option value="">Select a student</option>';
+            
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.admissionNumber;
+                option.textContent = `${student.admissionNumber} - ${student.name}`;
+                resultStudentSelect.appendChild(option);
+            });
+        }
+
+        // Populate programs table
+        function populateProgramsTable() {
+            const tableBody = document.getElementById('programsTableBody');
+            tableBody.innerHTML = '';
+            
+            programs.forEach(program => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${program.code}</td>
+                    <td>${program.name}</td>
+                    <td>${program.description || 'No description available'}</td>
+                    <td>
+                        <button onclick="confirmDeleteProgram('${program.code}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Populate teams list
+        function populateTeamsList() {
+            const teamsList = document.getElementById('teamsList');
+            teamsList.innerHTML = '';
+            
+            teams.forEach(team => {
+                const teamCard = document.createElement('div');
+                teamCard.className = 'team-card';
+                teamCard.innerHTML = `
+                    <h4>${team.name}</h4>
+                    <p>${team.description || 'No description available'}</p>
+                    <button onclick="confirmDeleteTeam('${team.name}')">Delete</button>
+                `;
+                teamsList.appendChild(teamCard);
+            });
+        }
+
+        // Populate students table
+        function populateStudentsTable() {
+            const tableBody = document.getElementById('studentsTableBody');
+            tableBody.innerHTML = '';
+            
+            students.forEach(student => {
+                const totalPoints = calculateTotalPoints(student.admissionNumber);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${student.imageUrl}" alt="${student.name}" class="student-image"></td>
+                    <td>${student.admissionNumber}</td>
+                    <td>${student.name}</td>
+                    <td>${getProgramName(student.program) || 'Not Assigned'}</td>
+                    <td>${student.team || 'Not Assigned'}</td>
+                    <td class="points">${totalPoints}</td>
+                    <td>
+                        <button onclick="confirmDeleteStudent('${student.admissionNumber}')">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Populate results tables
+        function populateResultsTables() {
+            const unpublishedTableBody = document.getElementById('unpublishedResultsTableBody');
+            const publishedTableBody = document.getElementById('publishedResultsTableBody');
+            
+            unpublishedTableBody.innerHTML = '';
+            publishedTableBody.innerHTML = '';
+            
+            const unpublishedResults = results.filter(r => !r.published);
+            const publishedResults = results.filter(r => r.published);
+            
+            unpublishedResults.forEach(result => {
+                const student = students.find(s => s.admissionNumber === result.studentAdmissionNumber);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="checkbox" class="result-checkbox" value="${result.studentAdmissionNumber}-${result.programCode}"></td>
+                    <td>${student ? student.name : 'Unknown'}</td>
+                    <td>${getProgramName(result.programCode)}</td>
+                    <td>
+                        <span class="position-badge ${getPositionClass(result.position)}">
+                            ${getPositionText(result.position)}
+                        </span>
+                    </td>
+                    <td class="points">${result.points}</td>
+                `;
+                unpublishedTableBody.appendChild(row);
+            });
+            
+            publishedResults.forEach(result => {
+                const student = students.find(s => s.admissionNumber === result.studentAdmissionNumber);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student ? student.name : 'Unknown'}</td>
+                    <td>${getProgramName(result.programCode)}</td>
+                    <td>
+                        <span class="position-badge ${getPositionClass(result.position)}">
+                            ${getPositionText(result.position)}
+                        </span>
+                    </td>
+                    <td class="points">${result.points}</td>
+                `;
+                publishedTableBody.appendChild(row);
+            });
+        }
+
+        // Calculate total points for a student
+        function calculateTotalPoints(admissionNumber) {
+            let totalPoints = 0;
+            const studentResults = results.filter(r => r.studentAdmissionNumber === admissionNumber && r.published);
+            
+            studentResults.forEach(result => {
+                totalPoints += result.points;
+            });
+            
+            return totalPoints;
+        }
+
+        // Get program name by code
+        function getProgramName(code) {
+            const program = programs.find(p => p.code === code);
+            return program ? program.name : 'Unknown';
+        }
+
+        // Get program by code
+        function getProgram(code) {
+            return programs.find(p => p.code === code);
+        }
+
+        // Get team by name
+        function getTeam(name) {
+            return teams.find(t => t.name === name);
+        }
+
+        // Get student programs with participation status
+        function getStudentPrograms(admissionNumber) {
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            if (!student) return [];
+            
+            const studentPrograms = [];
+            
+            // Get the student's assigned program
+            if (student.program) {
+                const program = getProgram(student.program);
+                if (program) {
+                    studentPrograms.push({
+                        code: program.code,
+                        name: program.name,
+                        assigned: true,
+                        hasResults: results.some(r => r.studentAdmissionNumber === admissionNumber && r.programCode === program.code)
+                    });
+                }
+            }
+            
+            // Get programs where the student has results but might not be assigned
+            const resultPrograms = results
+                .filter(r => r.studentAdmissionNumber === admissionNumber)
+                .map(r => r.programCode)
+                .filter(code => code !== student.program);
+            
+            resultPrograms.forEach(code => {
+                if (!studentPrograms.some(p => p.code === code)) {
+                    const program = getProgram(code);
+                    if (program) {
+                        studentPrograms.push({
+                            code: program.code,
+                            name: program.name,
+                            assigned: false,
+                            hasResults: true
+                        });
+                    }
+                }
+            });
+            
+            return studentPrograms;
+        }
+
+        // Display program participation
+        function displayProgramParticipation(admissionNumber, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            const studentPrograms = getStudentPrograms(admissionNumber);
+            
+            if (studentPrograms.length === 0) {
+                container.innerHTML = '<p>No program participation found.</p>';
+                return;
+            }
+            
+            studentPrograms.forEach(program => {
+                const programTag = document.createElement('div');
+                programTag.className = 'program-tag';
+                
+                if (program.assigned && program.hasResults) {
+                    programTag.classList.add('results');
+                } else if (program.assigned) {
+                    programTag.classList.add('assigned');
+                }
+                
+                programTag.innerHTML = `
+                    ${program.code} - ${program.name}
+                    <span class="status">
+                        ${program.assigned ? (program.hasResults ? 'With Results' : 'Assigned') : 'Results Only'}
+                    </span>
+                `;
+                
+                container.appendChild(programTag);
+            });
+        }
+
+        // Login function
+        function login(userType) {
+            let username, password, loginMessage;
+            
+            if (userType === 'admin') {
+                username = document.getElementById('adminUsername').value;
+                password = document.getElementById('adminPassword').value;
+                loginMessage = document.getElementById('loginMessage');
+                
+                // Check credentials
+                if (username === "Suhail" && password === "syed1468") {
+                    currentUser = username;
+                    currentUserType = userType;
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('adminDashboard').classList.remove('hidden');
+                    showMessage(loginMessage, "Login successful! Welcome, Suhail.", "success");
+                } else {
+                    showMessage(loginMessage, "Invalid username or password. Please try again.", "error");
+                }
+            } else if (userType === 'viewer') {
+                username = document.getElementById('viewerUsername').value;
+                password = document.getElementById('viewerPassword').value;
+                loginMessage = document.getElementById('loginMessage');
+                
+                // Check credentials
+                if (username === "ALMISBAH" && password === "syed1468") {
+                    currentUser = username;
+                    currentUserType = userType;
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('viewerDashboard').classList.remove('hidden');
+                    showMessage(loginMessage, "Login successful! Welcome, AL Misbah Friends.", "success");
+                } else {
+                    showMessage(loginMessage, "Invalid username or password. Please try again.", "error");
+                }
+            } else if (userType === 'student') {
+                const admissionNumber = document.getElementById('studentAdmissionNumber').value;
+                password = document.getElementById('studentPassword').value;
+                loginMessage = document.getElementById('loginMessage');
+                
+                // Find student
+                const student = students.find(s => s.admissionNumber === admissionNumber && s.password === password);
+                
+                if (student) {
+                    currentUser = student;
+                    currentUserType = userType;
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('studentDashboard').classList.remove('hidden');
+                    populateStudentDashboard(student);
+                    showMessage(loginMessage, "Login successful! Welcome, " + student.name + ".", "success");
+                } else {
+                    showMessage(loginMessage, "Invalid admission number or password. Please try again.", "error");
+                }
+            }
+        }
+
+        // Populate student dashboard
+        function populateStudentDashboard(student) {
+            // Set profile information
+            const avatar = document.getElementById('studentAvatar');
+            avatar.innerHTML = `<img src="${student.imageUrl}" alt="${student.name}">`;
+            document.getElementById('studentWelcomeName').textContent = student.name;
+            document.getElementById('studentProgramInfo').textContent = getProgramName(student.program) || 'No Program Assigned';
+            
+            // Set personal details
+            document.getElementById('studentAdmissionNo').textContent = student.admissionNumber;
+            document.getElementById('studentFullName').textContent = student.name;
+            document.getElementById('studentProgramName').textContent = getProgramName(student.program) || 'Not Assigned';
+            document.getElementById('studentTeamName').textContent = student.team || 'Not Assigned';
+            document.getElementById('studentTotalPoints').textContent = calculateTotalPoints(student.admissionNumber);
+            
+            // Display program participation
+            displayProgramParticipation(student.admissionNumber, 'studentProgramParticipationList');
+            
+            // Set results
+            populateStudentResults(student.admissionNumber);
+            
+            // Set program information
+            populateStudentProgram(student.program);
+        }
+
+        // Populate student results
+        function populateStudentResults(admissionNumber) {
+            const resultsList = document.getElementById('myResultsList');
+            resultsList.innerHTML = '';
+            
+            const studentResults = results.filter(r => 
+                r.studentAdmissionNumber === admissionNumber && r.published
+            );
+            
+            if (studentResults.length > 0) {
+                const resultsTable = document.createElement('table');
+                resultsTable.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Program</th>
+                            <th>Position</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${studentResults.map(result => `
+                            <tr>
+                                <td>${getProgramName(result.programCode)}</td>
+                                <td>
+                                    <span class="position-badge ${getPositionClass(result.position)}">
+                                        ${getPositionText(result.position)}
+                                    </span>
+                                </td>
+                                <td class="points">${result.points}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+                resultsList.appendChild(resultsTable);
+            } else {
+                resultsList.innerHTML = '<p>No published results found.</p>';
+            }
+        }
+
+        // Populate student program information
+        function populateStudentProgram(programCode) {
+            const programInfo = document.getElementById('myProgramInfo');
+            programInfo.innerHTML = '';
+            
+            const program = getProgram(programCode);
+            
+            if (program) {
+                const programCard = document.createElement('div');
+                programCard.className = 'program-card';
+                programCard.innerHTML = `
+                    <h4>${program.name} (${program.code})</h4>
+                    <p>${program.description || 'No description available.'}</p>
+                `;
+                programInfo.appendChild(programCard);
+                
+                // Also show team information if available
+                const student = students.find(s => s.program === programCode);
+                if (student && student.team) {
+                    const team = getTeam(student.team);
+                    if (team) {
+                        const teamCard = document.createElement('div');
+                        teamCard.className = 'team-card';
+                        teamCard.innerHTML = `
+                            <h4>Team: ${team.name}</h4>
+                            <p>${team.description || 'No description available.'}</p>
+                        `;
+                        programInfo.appendChild(teamCard);
+                    }
+                }
+            } else {
+                programInfo.innerHTML = '<p>No program assigned to this student.</p>';
+            }
+        }
+
+        // Show student tab
+        function showStudentTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('#studentDashboard .tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('#studentDashboard .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Logout function
+        function logout() {
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('viewerDashboard').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.add('hidden');
+            
+            // Clear form fields
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('viewerUsername').value = '';
+            document.getElementById('viewerPassword').value = '';
+            document.getElementById('studentAdmissionNumber').value = '';
+            document.getElementById('studentPassword').value = '';
+            
+            // Reset current user
+            currentUser = null;
+            currentUserType = null;
+        }
+
+        // Show tab content
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('#adminDashboard .tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('#adminDashboard .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // If publish results tab is selected, refresh the tables
+            if (tabName === 'publishResults') {
+                populateResultsTables();
+            }
+        }
+
+        // Add student function (simplified)
+        function addStudent() {
+            const name = document.getElementById('studentName').value.trim();
+            const admissionNumber = document.getElementById('admissionNumber').value.trim();
+            const messageElement = document.getElementById('addStudentMessage');
+            
+            // Validate inputs
+            if (!name || !admissionNumber || !selectedImageFile) {
+                showMessage(messageElement, "Please fill in all required fields and select an image.", "error");
+                return;
+            }
+            
+            // Check if admission number already exists
+            if (students.some(student => student.admissionNumber === admissionNumber)) {
+                showMessage(messageElement, "A student with this admission number already exists.", "error");
+                return;
+            }
+            
+            // Show loading indicator
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = 'Adding Student...<span class="loading"></span>';
+            button.disabled = true;
+            
+            // Read the selected image file as a data URL
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                
+                // Add student to database (simplified)
+                students.push({ 
+                    admissionNumber, 
+                    name, 
+                    password: admissionNumber, // Use admission number as default password
+                    program: "", // No program assigned initially
+                    team: "", // No team assigned initially
+                    imageUrl 
+                });
+                
+                // Save to localStorage
+                saveDataToStorage();
+                
+                // Clear form
+                document.getElementById('studentName').value = '';
+                document.getElementById('admissionNumber').value = '';
+                document.getElementById('studentImage').value = '';
+                document.getElementById('imagePreview').classList.add('hidden');
+                selectedImageFile = null;
+                
+                // Update dropdowns and tables
+                populateStudentDropdown();
+                populateAssignProgramDropdowns();
+                populateAssignTeamDropdowns();
+                populateStudentsTable();
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                showMessage(messageElement, "Student added successfully!", "success");
+            };
+            reader.readAsDataURL(selectedImageFile);
+        }
+
+        // Assign program to student
+        function assignProgramToStudent() {
+            const admissionNumber = document.getElementById('assignProgramStudent').value;
+            const programCode = document.getElementById('assignProgramProgram').value;
+            const messageElement = document.getElementById('assignProgramMessage');
+            
+            // Validate inputs
+            if (!admissionNumber || !programCode) {
+                showMessage(messageElement, "Please select a student and a program.", "error");
+                return;
+            }
+            
+            // Find student
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            if (!student) {
+                showMessage(messageElement, "Student not found.", "error");
+                return;
+            }
+            
+            // Update student's program
+            student.program = programCode;
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            // Clear form
+            document.getElementById('assignProgramStudent').value = '';
+            document.getElementById('assignProgramProgram').value = '';
+            
+            // Update tables
+            populateStudentsTable();
+            
+            showMessage(messageElement, "Program assigned successfully!", "success");
+        }
+
+        // Assign team to student
+        function assignTeamToStudent() {
+            const admissionNumber = document.getElementById('assignTeamStudent').value;
+            const teamName = document.getElementById('assignTeamTeam').value;
+            const messageElement = document.getElementById('assignTeamMessage');
+            
+            // Validate inputs
+            if (!admissionNumber) {
+                showMessage(messageElement, "Please select a student.", "error");
+                return;
+            }
+            
+            // Find student
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            if (!student) {
+                showMessage(messageElement, "Student not found.", "error");
+                return;
+            }
+            
+            // Update student's team
+            student.team = teamName;
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            // Clear form
+            document.getElementById('assignTeamStudent').value = '';
+            document.getElementById('assignTeamTeam').value = '';
+            
+            // Update tables
+            populateStudentsTable();
+            
+            showMessage(messageElement, "Team assigned successfully!", "success");
+        }
+
+        // Confirm delete student
+        function confirmDeleteStudent(admissionNumber) {
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            if (student) {
+                showModal(
+                    "Confirm Delete Student",
+                    `Are you sure you want to delete ${student.name} (Admission No: ${admissionNumber})? This action cannot be undone.`,
+                    function() {
+                        deleteStudent(admissionNumber);
+                    }
+                );
+            }
+        }
+
+        // Delete student function
+        function deleteStudent(admissionNumber) {
+            students = students.filter(student => student.admissionNumber !== admissionNumber);
+            results = results.filter(result => result.studentAdmissionNumber !== admissionNumber);
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            populateStudentDropdown();
+            populateAssignProgramDropdowns();
+            populateAssignTeamDropdowns();
+            populateStudentsTable();
+            populateResultsTables();
+            
+            closeModal();
+        }
+
+        // Add program function
+        function addProgram() {
+            const code = document.getElementById('programCode').value.trim().toUpperCase();
+            const name = document.getElementById('programName').value.trim();
+            const description = document.getElementById('programDescription').value.trim();
+            
+            if (!code || !name) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+            
+            // Validate code format (alphanumeric only)
+            if (!/^[A-Z0-9]+$/.test(code)) {
+                alert("Program code should contain only uppercase letters and numbers.");
+                return;
+            }
+            
+            // Check if program code already exists
+            if (programs.some(program => program.code === code)) {
+                alert("A program with this code already exists.");
+                return;
+            }
+            
+            // Add program to database
+            programs.push({ code, name, description });
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            // Clear form
+            document.getElementById('programCode').value = '';
+            document.getElementById('programName').value = '';
+            document.getElementById('programDescription').value = '';
+            
+            // Update dropdowns and table
+            populateProgramDropdowns();
+            populateAssignProgramDropdowns();
+            populateProgramsTable();
+        }
+
+        // Confirm delete program
+        function confirmDeleteProgram(code) {
+            const program = programs.find(p => p.code === code);
+            if (program) {
+                showModal(
+                    "Confirm Delete Program",
+                    `Are you sure you want to delete ${program.name} (${program.code})? This will also remove this program from all students assigned to it.`,
+                    function() {
+                        deleteProgram(code);
+                    }
+                );
+            }
+        }
+
+        // Delete program function
+        function deleteProgram(code) {
+            programs = programs.filter(program => program.code !== code);
+            results = results.filter(result => result.programCode !== code);
+            
+            // Update students who were in this program
+            students.forEach(student => {
+                if (student.program === code) {
+                    student.program = "";
+                }
+            });
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            populateProgramDropdowns();
+            populateAssignProgramDropdowns();
+            populateProgramsTable();
+            populateStudentsTable();
+            populateResultsTables();
+            
+            closeModal();
+        }
+
+        // Add team function
+        function addTeam() {
+            const name = document.getElementById('teamName').value.trim();
+            const description = document.getElementById('teamDescription').value.trim();
+            
+            if (!name) {
+                alert("Please enter a team name.");
+                return;
+            }
+            
+            // Check if team name already exists
+            if (teams.some(team => team.name.toLowerCase() === name.toLowerCase())) {
+                alert("A team with this name already exists.");
+                return;
+            }
+            
+            // Add team to database
+            teams.push({ name, description });
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            // Clear form
+            document.getElementById('teamName').value = '';
+            document.getElementById('teamDescription').value = '';
+            
+            // Update dropdowns and list
+            populateAssignTeamDropdowns();
+            populateTeamsList();
+        }
+
+        // Confirm delete team
+        function confirmDeleteTeam(name) {
+            const team = teams.find(t => t.name === name);
+            if (team) {
+                showModal(
+                    "Confirm Delete Team",
+                    `Are you sure you want to delete the ${team.name} team? Students in this team will have their team assignment removed.`,
+                    function() {
+                        deleteTeam(name);
+                    }
+                );
+            }
+        }
+
+        // Delete team function
+        function deleteTeam(name) {
+            teams = teams.filter(team => team.name !== name);
+            
+            // Update students who were in this team
+            students.forEach(student => {
+                if (student.team === name) {
+                    student.team = "";
+                }
+            });
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            populateAssignTeamDropdowns();
+            populateTeamsList();
+            populateStudentsTable();
+            
+            closeModal();
+        }
+
+        // Add result function
+        function addResult() {
+            const studentAdmissionNumber = document.getElementById('resultStudent').value;
+            const programCode = document.getElementById('resultProgram').value;
+            const position = parseInt(document.getElementById('resultPosition').value);
+            const messageElement = document.getElementById('addResultMessage');
+            
+            // Validate inputs
+            if (!studentAdmissionNumber || !programCode || !position) {
+                showMessage(messageElement, "Please fill in all required fields.", "error");
+                return;
+            }
+            
+            // Calculate points based on position
+            let points = 0;
+            if (position === 1) points = 8;
+            else if (position === 2) points = 5;
+            else if (position === 3) points = 3;
+            
+            // Check if result already exists for this student and program
+            if (results.some(r => r.studentAdmissionNumber === studentAdmissionNumber && r.programCode === programCode)) {
+                showMessage(messageElement, "A result for this student and program already exists.", "error");
+                return;
+            }
+            
+            // Add result to database
+            results.push({ studentAdmissionNumber, programCode, position, points, published: false });
+            
+            // Save to localStorage
+            saveDataToStorage();
+            
+            // Clear form
+            document.getElementById('resultStudent').value = '';
+            document.getElementById('resultProgram').value = '';
+            document.getElementById('resultPosition').value = '';
+            
+            // Update publication status
+            updatePublicationStatus();
+            populateResultsTables();
+            
+            showMessage(messageElement, "Result added successfully!", "success");
+        }
+
+        // Publish selected results function
+        function publishSelectedResults() {
+            const checkboxes = document.querySelectorAll('.result-checkbox:checked');
+            const messageElement = document.getElementById('publishMessage');
+            
+            if (checkboxes.length === 0) {
+                showMessage(messageElement, "Please select at least one result to publish.", "error");
+                return;
+            }
+            
+            let publishedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                const [studentAdmissionNumber, programCode] = checkbox.value.split('-');
+                const result = results.find(r => 
+                    r.studentAdmissionNumber === studentAdmissionNumber && 
+                    r.programCode === programCode
+                );
+                
+                if (result && !result.published) {
+                    result.published = true;
+                    publishedCount++;
+                }
+            });
+            
+            if (publishedCount > 0) {
+                // Save to localStorage
+                saveDataToStorage();
+                
+                updatePublicationStatus();
+                populateResultsTables();
+                populateStudentsTable();
+                showMessage(messageElement, `${publishedCount} result(s) published successfully!`, "success");
+            } else {
+                showMessage(messageElement, "No new results were published.", "error");
+            }
+        }
+
+        // Update publication status
+        function updatePublicationStatus() {
+            const statusElement = document.getElementById('currentStatus');
+            const unpublishedCount = results.filter(r => !r.published).length;
+            
+            if (unpublishedCount === 0) {
+                statusElement.textContent = 'All Published';
+                statusElement.className = 'publish-status published';
+            } else {
+                statusElement.textContent = `${unpublishedCount} Unpublished`;
+                statusElement.className = 'publish-status unpublished';
+            }
+        }
+
+        // Search student function (admin)
+        function searchStudent() {
+            const admissionNumber = document.getElementById('searchAdmissionNumber').value.trim();
+            const searchResult = document.getElementById('searchResult');
+            const studentResults = document.getElementById('studentResults');
+            
+            if (!admissionNumber) {
+                alert("Please enter an admission number to search.");
+                return;
+            }
+            
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            
+            if (student) {
+                // Set profile avatar
+                const avatar = document.getElementById('searchResultAvatar');
+                avatar.innerHTML = `<img src="${student.imageUrl}" alt="${student.name}">`;
+                
+                // Set profile info
+                document.getElementById('resultName').textContent = student.name;
+                document.getElementById('resultProgramInfo').textContent = getProgramName(student.program) || 'No Program Assigned';
+                
+                // Set personal details
+                document.getElementById('resultAdmissionNumber').textContent = student.admissionNumber;
+                document.getElementById('resultProgram').textContent = getProgramName(student.program) || 'Not Assigned';
+                document.getElementById('resultTeam').textContent = student.team || 'Not Assigned';
+                document.getElementById('resultPoints').textContent = calculateTotalPoints(admissionNumber);
+                
+                // Display program participation
+                displayProgramParticipation(admissionNumber, 'programParticipationList');
+                
+                // Display student results
+                studentResults.innerHTML = '';
+                const studentResultsData = results.filter(r => r.studentAdmissionNumber === admissionNumber);
+                
+                if (studentResultsData.length > 0) {
+                    const resultsTable = document.createElement('table');
+                    resultsTable.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Position</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${studentResultsData.map(result => `
+                                <tr>
+                                    <td>${getProgramName(result.programCode)}</td>
+                                    <td>
+                                        <span class="position-badge ${getPositionClass(result.position)}">
+                                            ${getPositionText(result.position)}
+                                        </span>
+                                    </td>
+                                    <td class="points">${result.points}</td>
+                                    <td>
+                                        <span class="publish-status ${result.published ? 'published' : 'unpublished'}">
+                                            ${result.published ? 'Published' : 'Unpublished'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    `;
+                    studentResults.appendChild(resultsTable);
+                } else {
+                    studentResults.innerHTML = '<p>No results found for this student.</p>';
+                }
+                
+                searchResult.classList.remove('hidden');
+            } else {
+                searchResult.classList.add('hidden');
+                alert("Student not found!");
+            }
+        }
+
+        // Viewer search function
+        function viewerSearch() {
+            const admissionNumber = document.getElementById('viewerAdmissionNumber').value.trim();
+            const viewerResult = document.getElementById('viewerResult');
+            const viewerStudentResults = document.getElementById('viewerStudentResults');
+            
+            if (!admissionNumber) {
+                alert("Please enter an admission number to search.");
+                return;
+            }
+            
+            const student = students.find(s => s.admissionNumber === admissionNumber);
+            
+            if (student) {
+                // Set profile avatar
+                const avatar = document.getElementById('viewerResultAvatar');
+                avatar.innerHTML = `<img src="${student.imageUrl}" alt="${student.name}">`;
+                
+                // Set profile info
+                document.getElementById('viewerResultName').textContent = student.name;
+                document.getElementById('viewerResultProgramInfo').textContent = getProgramName(student.program) || 'No Program Assigned';
+                
+                // Set personal details
+                document.getElementById('viewerResultAdmissionNumber').textContent = student.admissionNumber;
+                document.getElementById('viewerResultProgram').textContent = getProgramName(student.program) || 'Not Assigned';
+                document.getElementById('viewerResultTeam').textContent = student.team || 'Not Assigned';
+                document.getElementById('viewerResultPoints').textContent = calculateTotalPoints(admissionNumber);
+                
+                // Display program participation
+                displayProgramParticipation(admissionNumber, 'viewerProgramParticipationList');
+                
+                // Display student results (only published ones)
+                viewerStudentResults.innerHTML = '';
+                const studentResultsData = results.filter(r => 
+                    r.studentAdmissionNumber === admissionNumber && r.published
+                );
+                
+                if (studentResultsData.length > 0) {
+                    const resultsTable = document.createElement('table');
+                    resultsTable.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Position</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${studentResultsData.map(result => `
+                                <tr>
+                                    <td>${getProgramName(result.programCode)}</td>
+                                    <td>
+                                        <span class="position-badge ${getPositionClass(result.position)}">
+                                            ${getPositionText(result.position)}
+                                        </span>
+                                    </td>
+                                    <td class="points">${result.points}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    `;
+                    viewerStudentResults.appendChild(resultsTable);
+                } else {
+                    viewerStudentResults.innerHTML = '<p>No published results found for this student.</p>';
+                }
+                
+                viewerResult.classList.remove('hidden');
+            } else {
+                viewerResult.classList.add('hidden');
+                alert("Student not found!");
+            }
+        }
+
+        // Get position class for styling
+        function getPositionClass(position) {
+            if (position === 1) return 'first';
+            if (position === 2) return 'second';
+            if (position === 3) return 'third';
+            return '';
+        }
+
+        // Get position text
+        function getPositionText(position) {
+            if (position === 1) return '1st Position';
+            if (position === 2) return '2nd Position';
+            if (position === 3) return '3rd Position';
+            return `${position}th Position`;
+        }
+
+        // Show message function
+        function showMessage(element, message, type) {
+            element.textContent = message;
+            element.classList.remove('hidden', 'success', 'error');
+            element.classList.add(type);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Modal functions
+        function showModal(title, message, callback) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('confirmModal').style.display = 'block';
+            
+            modalCallback = callback;
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+            modalCallback = null;
+        }
+
+        // Set up modal confirm button
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            if (modalCallback) {
+                modalCallback();
+            }
+        });
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
